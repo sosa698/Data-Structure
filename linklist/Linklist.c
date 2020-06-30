@@ -1,73 +1,74 @@
 #include "Linklist.h"
 #include <stdlib.h>
 
-Linklist_t* CreateLink(int data)
+Linklist_t* CreateLink(void)
 {
-	Linklist_t* tmp = (Linklist_t*)malloc(sizeof(Linklist_t));
-	tmp->data = data;
-	tmp->next = NULL;
-	
-	return tmp;
+	return NULL;
 }
   
  
-void InsertToEnd(Linklist_t* Link , int insert_data)
+void InsertToEnd(Linklist_t** Link , int insert_data)
 {
-	while(Link->next != NULL)	//Find End
+	if( (*Link) == NULL )
 	{
-		Link = Link->next;	
+		(*Link) = (Linklist_t*)malloc(sizeof(Linklist_t));
+		(*Link) -> data = insert_data;
+		(*Link)-> next = NULL;
 	}
-	Link->next = CreateLink(insert_data);
+	else
+	{
+		Linklist_t* cur = *Link;		
+		while( cur->next != NULL)	//Find End
+		{
+			cur = cur->next; 
+		}
+		cur->next = (Linklist_t*)malloc(sizeof(Linklist_t));
+		cur->next->data = insert_data;
+		cur->next->next = NULL;
+	}
 }
 
-Linklist_t* InsertToHead(Linklist_t* Link , int insert_data)
+void InsertToHead(Linklist_t** Link , int insert_data)
 {
 	Linklist_t* new_head =  (Linklist_t*)malloc(sizeof(Linklist_t));
 	new_head->data = insert_data;
-	new_head->next = Link;
-
-	return new_head;
+	new_head->next = *Link;
+		
+	*Link = new_head;	
 }
 
-/*
-void InsertToHead1(Linklist_t** Link , int insert_data)
+
+
+void DeleteData(Linklist_t** Link , int delete_data)
 {
-	Linklist_t* new_head =  (Linklist_t*)malloc(sizeof(Linklist_t));
-	new_head->data = insert_data;
-	new_head->next = *Link;	
-	*Link = new_head;
-}
-*/
 
-Linklist_t* DeleteData(Linklist_t* Link , int delete_data)
-{
-	Linklist_t* head = Link;
-	
-	if(Link->data == delete_data)	//first node
+	if( (*Link)->data == delete_data)	//first node
 	{
-		head = Link->next;
-		free(Link);
-		return head;
+		Linklist_t* tmp =  *Link;
+		*Link = (*Link) -> next;
+		free(tmp);
+		return;
 	}
+	else//----not first node-----//
+	{	
+		Linklist_t* last = *Link;
+		Linklist_t* cur =  *Link;
+		
+		while(cur != NULL)
+		{
+			if(cur->data == delete_data) break;
+			last = cur;
+			cur = cur->next;		
+		}
 	
-	//----not first node-----//
-	Linklist_t* last = Link;
-	
-	while(Link != NULL)
-	{
-		if(Link->data == delete_data)
-			break;
-		last = Link;
-		Link = Link->next;		
+		if(cur != NULL)
+		{
+			last->next = cur->next;
+			free(cur);
+		}
 	}
-	
-	if(Link != NULL)
-	{
-		last->next = Link->next;
-		free(Link);
-	}
-	return head;
 }
+	
 
 int FindData(Linklist_t* Link,int find_data)
 {
@@ -78,7 +79,6 @@ int FindData(Linklist_t* Link,int find_data)
 		Link = Link->next;
 	}
 	return 0;
-	
 }
 
 
