@@ -9,7 +9,9 @@ typedef struct stack_t
 }stack_t;
 
 
-
-
+stack_t* create_stack(void);
+void pop(stack_t** root);
+void push(stack_t** root , int push_data);
+int IsEmpty(stack_t** root);
 
 #endif
