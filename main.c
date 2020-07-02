@@ -3,6 +3,7 @@
 #include "./linklist/Linklist.h"
 #include "./stack/stack.h"
 #include "./queue/queue.h"
+#include "./binary heap array/binary_heap_array.h"
 /* run this program using the console pauser or add your own getch, system("pause") or input loop */
 
 #define PRINT_LINK()		while(p != NULL)						\
@@ -89,28 +90,8 @@ int main(int argc, char *argv[]) {
 
 //----------------------------------queue test
 
-	queue_t* q = create_queue();
+/*	queue_t* q = create_queue();
 	
-	
-/*
-	int test = 0;
-	for(unsigned long long i = 0XFF ; i>0; i --)
-	{
-		test = 1;
-		push_stack(&s,10);
-		push_stack(&s,20);
-		push_stack(&s,30);
-		push_stack(&s,40);
-		push_stack(&s,50);
-		
-		pop_stack(&s);
-		pop_stack(&s);
-		pop_stack(&s);
-		pop_stack(&s);
-		pop_stack(&s);
-	}
-*/	
-
 	push_queue(&q, 10);
 	push_queue(&q, 20);
 	push_queue(&q, 30);
@@ -123,7 +104,46 @@ int main(int argc, char *argv[]) {
 	printf("front = %d \n" , a);
 	
 	PRINT_QUEUE();
+*/
+//----------------------------------queue test End	
 
-//----------------------------------queue test End		
+
+//----------------------------------Max Binary heap test
+
+	BinHeapArray_t b ; 
+	
+	BHA_Initial(&b);
+	
+	BHA_insert_data(&b,38);
+	BHA_insert_data(&b,14);	
+	BHA_insert_data(&b,57);
+	BHA_insert_data(&b,59);	
+	BHA_insert_data(&b,52);	
+	BHA_insert_data(&b,12);
+	BHA_insert_data(&b,19);
+	
+	int a= 	BHA_pop_data(&b);printf("a = %d\n" , a);
+	a= 	BHA_pop_data(&b);printf("a = %d\n" , a);
+/*	
+	b.data[0] = 38;
+	b.data[1] = 14;
+	b.data[2] = 57;
+	b.data[3] = 59;
+	
+	b.index = 3;
+	/*
+
+
+	*/
+//	BHA_modify(&b);
+	
+	for(int i = 0 ; i<=b.index ; i++)
+	{
+		printf("b[%d] = %d\n" , i , b.data[i]);
+	} 
+
+//----------------------------------Max Binary heap End
+
+	
 	return 0;
 }
