@@ -10,8 +10,10 @@ typedef struct stack_t
 
 
 stack_t* create_stack(void);
-void pop(stack_t** root);
-void push(stack_t** root , int push_data);
-int IsEmpty(stack_t** root);
+void pop_stack(stack_t** root);
+void push_stack(stack_t** root , int push_data);
+int IsEmpty_stack(stack_t** root);
+int get_stack_top(stack_t** root);
+int get_stack_size(stack_t** root);
 
 #endif
